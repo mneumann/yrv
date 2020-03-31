@@ -19,6 +19,8 @@
   export let reload = false;
   export let replace = false;
   export { cssClass as class };
+  export let activeClass = ''
+  export let inactiveClass = ''
 
   // replacement for `Object.keys(arguments[0].$$.props)`
   const thisProps = ['go', 'open', 'href', 'class', 'title', 'button', 'exact', 'reload', 'replace'];
@@ -33,6 +35,7 @@
       if (!active) {
         active = true;
         ref.setAttribute('aria-current', 'page');
+        ref.addClass(activeClass);
 
         if (button) {
           ref.setAttribute('disabled', true);
@@ -42,6 +45,7 @@
       active = false;
       ref.removeAttribute('disabled');
       ref.removeAttribute('aria-current');
+      ref.addClass(inactiveClass);
     }
   }
 
