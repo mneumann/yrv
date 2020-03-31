@@ -21,6 +21,8 @@
   export { cssClass as class };
   export let activeClass = ''
   export let inactiveClass = ''
+  
+  $: actualCssClass = cssClass + " " + (active ? activeClass : inactiveClass);
 
   // replacement for `Object.keys(arguments[0].$$.props)`
   const thisProps = ['go', 'open', 'href', 'class', 'title', 'button', 'exact', 'reload', 'replace'];
@@ -35,7 +37,6 @@
       if (!active) {
         active = true;
         ref.setAttribute('aria-current', 'page');
-        ref.addClass(activeClass);
 
         if (button) {
           ref.setAttribute('disabled', true);
@@ -45,7 +46,6 @@
       active = false;
       ref.removeAttribute('disabled');
       ref.removeAttribute('aria-current');
-      ref.addClass(inactiveClass);
     }
   }
 
@@ -95,11 +95,11 @@
 </script>
 
 {#if button}
-  <button {...fixedProps} bind:this={ref} class={cssClass} {title} on:click|preventDefault={onClick}>
+  <button {...fixedProps} bind:this={ref} class={actualCssClass} {title} on:click|preventDefault={onClick}>
     <slot />
   </button>
 {:else}
-  <a {...fixedProps} href={fixedHref || href} bind:this={ref} class={cssClass} {title} on:click|preventDefault={onClick}>
+  <a {...fixedProps} href={fixedHref || href} bind:this={ref} class={actualCssClass} {title} on:click|preventDefault={onClick}>
     <slot />
   </a>
 {/if}
