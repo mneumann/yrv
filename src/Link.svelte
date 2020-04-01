@@ -19,10 +19,10 @@
   export let reload = false;
   export let replace = false;
   export { cssClass as class };
-  export let activeClass = ''
-  export let inactiveClass = ''
+  export let classActive = ''
+  export let classInactive = ''
   
-  $: actualCssClass = cssClass + " " + (active ? activeClass : inactiveClass);
+  $: actualCssClass = cssClass + " " + (active ? classActive : classInactive);
 
   // replacement for `Object.keys(arguments[0].$$.props)`
   const thisProps = ['go', 'open', 'href', 'class', 'title', 'button', 'exact', 'reload', 'replace'];
